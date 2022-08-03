@@ -1,22 +1,21 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import "./Navbar.css";
 
-const Navbar = ({ title }) => {
-    const [style, setStyle] = useState({color:black, backgroundColor:"white"});
+const Navbar = ({ title, style, switchMode }) => {
   return (
-    <nav>
+    <nav style={style}>
       <h3>{title}</h3>
       <ul>
-        <li>
-            <input type="checkbox" id="toggleMode" />
+        <li style={{display: "flex", justifyContent: "center", alignItems: "center", gap: "0.5rem"}}>
+            <input type="checkbox" id="toggleMode" style={{aspectRatio: "1 / 1", width: "1.3em"}} onChange={switchMode}/>
             <label htmlFor="toggleMode">Dark Mode</label>
         </li>
         <li>
-          <a href="/">Home</a>
+          <a style={style} href="/">Home</a>
         </li>
         <li>
-          <a href="/about">About</a>
+          <a style={style} href="/about">About</a>
         </li>
       </ul>
     </nav>
