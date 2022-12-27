@@ -1,20 +1,30 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import MyMap from "./components/MyMap";
 
-function App({title}) {
-  const [navStyle, setNavStyle] = useState({
+function App({ title }) {
+  const [myStyle, setMyStyle] = useState({
     color: "black",
     backgroundColor: "#eee",
   });
 
   const switchMode = () => {
-    if (navStyle.color === "black") setNavStyle({ color: "#eee", backgroundColor: "black" });
-    else setNavStyle({ color: "black", backgroundColor: "#eee" });
+    if (myStyle.color === "black")
+      setMyStyle({ color: "#eee", backgroundColor: "black" });
+    else setMyStyle({ color: "black", backgroundColor: "#eee" });
   };
+
   return (
     <>
-      <Navbar title={title} style={navStyle} switchMode={switchMode} />
+      <Navbar title={title} style={myStyle} switchMode={switchMode} />
+      <main
+        style={{ Height: "90vh", display: "grid", placeItems: "center" }}
+      >
+        <MyMap />
+      </main>
+      <Footer style={myStyle} />
     </>
   );
 }
