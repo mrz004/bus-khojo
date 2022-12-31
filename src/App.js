@@ -1,42 +1,29 @@
-import React, { useState} from "react";
+import React from "react";
 import "./App.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import MyMap from "./components/MyMap";
+import About from "./components/About";
 import config from "./config";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+  Route
+} from "react-router-dom";
+import MainComponent from "./components/MainComponent";
 
 function App() {
   document.title = config.projectName;
 
-
-  const [myStyle, setMyStyle] = useState({
-    color: "black",
-    backgroundColor: "#eee",
-  });
-
-  const switchMode = () => {
-    if (myStyle.color === "black") {
-      setMyStyle({ color: "#eee", backgroundColor: "black" });
-    } else {
-      setMyStyle({ color: "black", backgroundColor: "#eee" });
-    }
-  };
-
-  return (
-    <div className="mainContainer">
-      <Navbar
-        title={config.projectName}
-        style={myStyle}
-        switchMode={switchMode}
-      />
-      <div
-        style={{display: "grid", placeItems: "center" }}
-      >
-        <MyMap apiKey={config.apiKey} />
-      </div>
-      <Footer style={myStyle} />
-    </div>
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<MainComponent config={config} />}>
+        <Route path="" element={<MyMap apiKey={config.apiKey} />} />
+        <Route path="about" element={<About />} />
+      </Route>
+    )
   );
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;

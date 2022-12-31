@@ -10,7 +10,7 @@ input[data-type="toggleButton"] + label {
   border: var(--border-size) solid currentColor;
   border-radius: calc(var(--size) * 2);
   position: relative;
-  transition: flex 1s ease;
+  transition: justify-content 1s ease;
 }
 
 input[data-type="toggleButton"]:checked + label {

@@ -2,12 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./styles/Navbar.css";
 import ToggleButton from "./ToggleButton";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = ({ title, style, switchMode }) => {
   return (
     <nav style={style}>
       <h3>
-        {title}
+        <Link to="/">{title}</Link>
         <div
           className="hambug"
           onClick={() => {
@@ -43,14 +44,10 @@ const Navbar = ({ title, style, switchMode }) => {
           </label>
         </li>
         <li>
-          <a style={style} href="/">
-            Home
-          </a>
+          <NavLink to="/">Home</NavLink>
         </li>
         <li>
-          <a style={style} href="/about">
-            About
-          </a>
+          <NavLink to="about">About</NavLink>
         </li>
       </ul>
     </nav>
