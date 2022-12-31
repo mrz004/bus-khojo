@@ -1,31 +1,41 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import MyMap from "./components/MyMap";
+import config from "./config";
 
-function App({ title }) {
+function App() {
+  document.title = config.projectName;
+
+
   const [myStyle, setMyStyle] = useState({
     color: "black",
     backgroundColor: "#eee",
   });
 
   const switchMode = () => {
-    if (myStyle.color === "black")
+    if (myStyle.color === "black") {
       setMyStyle({ color: "#eee", backgroundColor: "black" });
-    else setMyStyle({ color: "black", backgroundColor: "#eee" });
+    } else {
+      setMyStyle({ color: "black", backgroundColor: "#eee" });
+    }
   };
 
   return (
-    <>
-      <Navbar title={title} style={myStyle} switchMode={switchMode} />
-      <main
-        style={{ Height: "90vh", display: "grid", placeItems: "center" }}
+    <div className="mainContainer">
+      <Navbar
+        title={config.projectName}
+        style={myStyle}
+        switchMode={switchMode}
+      />
+      <div
+        style={{display: "grid", placeItems: "center" }}
       >
-        <MyMap />
-      </main>
+        <MyMap apiKey={config.apiKey} />
+      </div>
       <Footer style={myStyle} />
-    </>
+    </div>
   );
 }
 

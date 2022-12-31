@@ -1,0 +1,28 @@
+input[data-type="toggleButton"] + label {
+  --size: 1.5em;
+  --border-size: calc(var(--size) / 7);
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-inline: calc(var(--border-size) / 2);
+  width: calc(var(--size) * 2);
+  height: var(--size);
+  border: var(--border-size) solid currentColor;
+  border-radius: calc(var(--size) * 2);
+  position: relative;
+  transition: flex 1s ease;
+}
+
+input[data-type="toggleButton"]:checked + label {
+  justify-content: flex-end;
+}
+
+input[data-type="toggleButton"] + label > span {
+  --width: calc(var(--size) * 0.7);
+  content: "";
+  margin-block: auto;
+  aspect-ratio: 1 / 1;
+  width: var(--width);
+  background-color: currentColor;
+  border-radius: 50%;
+}

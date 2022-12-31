@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./styles/Navbar.css";
+import ToggleButton from "./ToggleButton";
 
 const Navbar = ({ title, style, switchMode }) => {
   return (
-    <nav style={{...style, minHeight: "5vh"}}>
+    <nav style={style}>
       <h3>
         {title}
         <div
@@ -29,13 +30,17 @@ const Navbar = ({ title, style, switchMode }) => {
             gap: "0.5rem",
           }}
         >
-          <input
-            type="checkbox"
-            id="toggleMode"
-            style={{ aspectRatio: "1 / 1", width: "1.3em" }}
-            onChange={switchMode}
-          />
-          <label htmlFor="toggleMode">Dark Mode</label>
+          <ToggleButton myId="toggleMode" onChange={switchMode} />
+          <label
+            style={{
+              WebkitUserSelect: "none",
+              msUserSelect: "none",
+              userSelect: "none",
+            }}
+            htmlFor="toggleMode"
+          >
+            Dark Mode
+          </label>
         </li>
         <li>
           <a style={style} href="/">

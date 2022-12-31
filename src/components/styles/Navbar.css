@@ -35,6 +35,11 @@ nav > ul > li {
   list-style: none;
 }
 
+#toggleMode {
+  aspect-ratio: 1 / 1;
+  width: 1.3em;
+}
+
 nav > ul > li > a {
   text-decoration: none;
   padding: 0.5em 1em;
@@ -43,14 +48,14 @@ nav > ul > li > a {
 }
 
 @media screen and (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        gap: 2rem;
-    }
-    nav > *:first-child {
-        width: 90vw;
-    }
-    .hambug {
+  nav {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  nav > *:first-child {
+    width: 90vw;
+  }
+  .hambug {
     display: inline;
   }
   nav > ul {
