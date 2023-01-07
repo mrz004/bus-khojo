@@ -1,5 +1,6 @@
 const config = {
-  projectName: "Bus Khojo",
+  // projectName: "Bus Khojo",
+  projectName: "Locate My Bus",
   apiKey: "77777"
 };
 
