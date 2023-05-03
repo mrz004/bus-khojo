@@ -1,39 +1,81 @@
 import React, { useEffect, useRef } from "react";
+import Map from "ol/Map.js";
+import OSM from "ol/source/OSM.js";
+import TileLayer from "ol/layer/Tile.js";
+import View from "ol/View.js";
+import VectorLayer from "ol/layer/Vector.js";
+import VectorSource from "ol/source/Vector.js";
+import Feature from "ol/Feature.js";
+import { Point } from "ol/geom.js";
+import { fromLonLat } from "ol/proj";
+import Style from "ol/style/Style";
+import Icon from "ol/style/Icon";
 
-import Map from 'ol/Map.js';
-import OSM from 'ol/source/OSM.js';
-import TileLayer from 'ol/layer/Tile.js';
-import View from 'ol/View.js';
-
-
-const MyMap = ({ apiKey }) => {
+const MyMap = ({ apiUrl }) => {
   const mapLoaded = useRef(false);
-  // const updateMap = (map, lat, lon) => {};
+  const map = useRef(null);
+  const marker = useRef(null);
+  const cods = useRef(null);
 
   useEffect(() => {
     if (mapLoaded.current) return;
     mapLoaded.current = true;
-
-    new Map({
-      target: 'map',
+    cods.current = [0, 0];
+    map.current = new Map({
+      target: "map",
       layers: [
         new TileLayer({
           source: new OSM(),
         }),
       ],
       view: new View({
-        center: [16.867634, 74.570389],
-        zoom: 3,
+        center: cods.current,
+        zoom: 8,
       }),
     });
+
+    marker.current = new VectorLayer({
+      source: new VectorSource({
+        features: [
+          new Feature({
+            geometry: new Point(fromLonLat(cods.current)),
+          }),
+        ],
+      }),
+      style: new Style({
+        image: new Icon({
+          // src: "/marker.png",
+          src: "https://docs.maptiler.com/openlayers/default-marker/marker-icon.png",
+          anchor: [0.5, 1],
+        }),
+      }),
+    });
+
+    map.current.addLayer(marker.current);
+
+    setInterval(() => {
+      cods.current[0]++;
+      cods.current[1]++;
+      marker.current.getSource().clear();
+      marker.current.getSource().addFeature(
+        new Feature({
+          geometry: new Point(fromLonLat(cods.current)),
+        })
+      );
+      console.log(marker.current);
+    }, 1000);
 
     // setInterval(() => {
     // const { lat, lon } = { lat: 0, lon: 0 };
     // updateMap(map, lat, lon);
-    // }, 5000);
+    // cods.current = cods.map((e) => e + 10);
+    // marker.current.getSource().setFeature();
+    // console.log("cods", cods);
+    // console.log("cods", cods.current);
+    // }, 500);
   }, []);
 
-  return <div id="map" style={{ width: "100%", height: "100%" }}></div>;
+  return <div id="map" style={{ width: "100%", height: "100%" }} />;
 };
 
 export default MyMap;
