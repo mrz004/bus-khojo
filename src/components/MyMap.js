@@ -53,26 +53,17 @@ const MyMap = ({ apiUrl }) => {
 
     map.current.addLayer(marker.current);
 
-    setInterval(() => {
-      cods.current[0]++;
-      cods.current[1]++;
-      marker.current.getSource().clear();
-      marker.current.getSource().addFeature(
-        new Feature({
-          geometry: new Point(fromLonLat(cods.current)),
-        })
-      );
-      console.log(marker.current);
-    }, 1000);
-
-    // setInterval(() => {
-    // const { lat, lon } = { lat: 0, lon: 0 };
-    // updateMap(map, lat, lon);
-    // cods.current = cods.map((e) => e + 10);
-    // marker.current.getSource().setFeature();
-    // console.log("cods", cods);
-    // console.log("cods", cods.current);
-    // }, 500);
+    // setInterval(async () => {
+    //   const response = await fetch(apiUrl + "?id=1");
+    //   const cods = await response.json();
+    //   marker.current.getSource().clear();
+    //   marker.current.getSource().addFeature(
+    //     new Feature({
+    //       geometry: new Point(fromLonLat(cods.current)),
+    //     })
+    //   );
+    //   console.log(marker.current);
+    // }, 1000);
   }, []);
 
   return <div id="map" style={{ width: "100%", height: "100%" }} />;
