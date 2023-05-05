@@ -7,7 +7,7 @@ import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
 import Feature from "ol/Feature.js";
 import { Point } from "ol/geom.js";
-import { fromLonLat } from "ol/proj";
+import { useGeographic } from "ol/proj";
 import Style from "ol/style/Style";
 import Icon from "ol/style/Icon";
 
@@ -15,12 +15,15 @@ const MyMap = ({ apiUrl }) => {
   const mapLoaded = useRef(false);
   const map = useRef(null);
   const marker = useRef(null);
-  const cods = useRef(null);
+  const collegCods = [74.63, 16.86];
+  const oldCods = useRef(collegCods);
+
+  useGeographic();
 
   useEffect(() => {
     if (mapLoaded.current) return;
     mapLoaded.current = true;
-    cods.current = [0, 0];
+
     map.current = new Map({
       target: "map",
       layers: [
@@ -29,8 +32,9 @@ const MyMap = ({ apiUrl }) => {
         }),
       ],
       view: new View({
-        center: cods.current,
-        zoom: 8,
+        // center: [0, 0],
+        center: collegCods,
+        zoom: 13,
       }),
     });
 
@@ -38,33 +42,50 @@ const MyMap = ({ apiUrl }) => {
       source: new VectorSource({
         features: [
           new Feature({
-            geometry: new Point(fromLonLat(cods.current)),
+            // geometry: new Point(fromLonLat(collegCods)),
+            geometry: new Point(oldCods.current),
           }),
         ],
       }),
       style: new Style({
         image: new Icon({
-          // src: "/marker.png",
-          src: "https://docs.maptiler.com/openlayers/default-marker/marker-icon.png",
+          src: "/marker.png",
           anchor: [0.5, 1],
         }),
       }),
     });
 
+    // console.log(marker.current);
+
     map.current.addLayer(marker.current);
 
-    // setInterval(async () => {
-    //   const response = await fetch(apiUrl + "?id=1");
-    //   const cods = await response.json();
-    //   marker.current.getSource().clear();
-    //   marker.current.getSource().addFeature(
-    //     new Feature({
-    //       geometry: new Point(fromLonLat(cods.current)),
-    //     })
-    //   );
-    //   console.log(marker.current);
-    // }, 1000);
-  }, []);
+    setInterval(async () => {
+      const response = await fetch(apiUrl + "&id=1");
+      const cods = await response.json();
+      console.log(cods);
+
+      if (
+        Math.abs(oldCods.current[0] - cods[0]) > 3 ||
+        Math.abs(oldCods.current[1] - cods[1]) > 3
+      ) {
+        oldCods.current = cods;
+        map.current.setView(
+          new View({
+            center: cods,
+            zoom: 13,
+          })
+        );
+      }
+
+      marker.current.getSource().clear();
+      marker.current.getSource().addFeature(
+        new Feature({
+          geometry: new Point(cods),
+        })
+      );
+      // console.log(marker.current);
+    }, 2000);
+  });
 
   return <div id="map" style={{ width: "100%", height: "100%" }} />;
 };
