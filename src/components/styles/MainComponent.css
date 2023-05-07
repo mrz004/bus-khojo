@@ -1,5 +1,5 @@
 .mainContainer {
     height: 100vh;
     display: grid;
-    grid-template-rows: minmax(5vh, auto) 1fr 5vh;
+    grid-template-rows: auto 1fr 5vh;
   }

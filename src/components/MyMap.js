@@ -59,7 +59,7 @@ const MyMap = ({ apiUrl }) => {
 
     map.current.addLayer(marker.current);
 
-    setInterval(async () => {
+    const updateMarker = async () => {
       const response = await fetch(apiUrl + "&id=1");
       const cods = await response.json();
       console.log(cods);
@@ -84,7 +84,11 @@ const MyMap = ({ apiUrl }) => {
         })
       );
       // console.log(marker.current);
-    }, 2000);
+    };
+
+    updateMarker();
+
+    setInterval(updateMarker, 3000);
   });
 
   return <div id="map" style={{ width: "100%", height: "100%" }} />;

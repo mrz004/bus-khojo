@@ -1,0 +1,16 @@
+.devCard {
+    display: inline-grid;
+}
+
+.devCard > .logo {
+    width: 100%;
+}
+
+.devCard > table {
+    border-spacing: max(5px, 0.5vw) max(3vh, 5px);
+}
+
+.devCard > table > tbody > tr {
+    text-align: justify;
+    
+}
