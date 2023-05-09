@@ -19,7 +19,7 @@ const About = () => {
       name: "MohammadJunaid Bargir",
       desc: {
         "Roll NO.": 223338,
-        "Enrollment NO.": 2100430307,
+        "Enrollment NO.": 2100430309,
         Responsibility:
           "He was responsible for deciding and assembling the hardware components. And also to make the module working.",
       },
