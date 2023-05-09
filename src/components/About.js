@@ -10,7 +10,7 @@ const About = () => {
         "Roll NO.": 223337,
         "Enrollment NO.": 2000430210,
         Responsibility:
-          "He was responsible for deploying both the frontend and backend API on a single AWS VPS with proper configurations.",
+          "He was responsible for deploying both the frontend and backend API on a single Azure VPS with proper configurations.",
       },
       imgSrc: "/devLogo.png",
     },
